@@ -1,0 +1,200 @@
+#include<stdio.h>
+#include<process.h>
+#include<string.h>
+#include<conio.h>
+#define M 100
+struct Date
+{
+    int year;
+    int month;
+    int day;
+};
+ struct equipment
+{
+    char number[10];
+    char name[20];
+    char factory[20];
+    struct Date purchased;
+    int amount;
+    int price;
+}
+equ[M];
+int n;
+
+void inputmessage(void);
+void delmessage(void);
+void searchmessage(void);
+void lookmessage(void);
+void menu(void);
+void output(void);
+void main()
+
+{ int flag=0;
+    menu();
+    do
+    {
+        flag=1;
+        switch(getchar())
+        {
+            case '1':inputmessage();break;
+            case '2':delmessage();break;
+            case '3':searchmessage();break;
+            case '4':add();break;
+            case '5':lookmessage();break;
+            case '6':output();break;
+            default:printf("输入错误\n");
+        }
+        printf("请按任意键继续\n");
+        getch();
+        menu();
+    }while(flag==1);
+}
+
+
+
+void menu(void)
+{
+    system("cls");
+    printf("\n");
+           printf("|--------欢迎进入设备信息管理系统------------|\n");
+           printf("|           1.输入设备信息                   |\n");
+           printf("|           2.删除设备信息                   |\n");
+           printf("|           3.查找设备信息                   |\n");
+           printf("|           4.添加设备信息                   |\n");
+           printf("|           5.浏览设备信息                   |\n");
+           printf("|           6.退出管理系统                   |\n");
+           printf("|--------------------------------------------|\n");
+printf("请输入要操作的选项：\n");
+}
+
+/**************************输入设备信息***************************/
+void inputmessage(void)
+{
+    int i;
+    system("cls");
+    printf("请输入设备数目：");
+    scanf("%d",&n);
+    for(i=0;i<n;i++)
+    {
+    printf("请输入设备号  名称：\n");
+    scanf("%s%s",equ[i].number,equ[i].name);
+    printf("请输入设备信息：\n");
+    printf("生产厂家\n");
+    scanf("%s",equ[i].factory);
+    printf("购买日期\n");
+    scanf("%s",&equ[i].purchased);
+    printf("数量\n");
+    scanf("%ld",&equ[i].amount);
+    printf("价格\n");
+    scanf("%ld",&equ[i].price);
+}
+    printf("输入成功\n");
+    }
+    /*********************浏览设备信息**********************/
+    void lookmessage(void)
+    {
+        int i;
+        system("cls");
+         printf("设备号\t名称\t生产厂家\t购买日期\t数量\t价格\t\n");
+        for(i=0;i<n;i++)
+        {
+        printf("%s",equ[i].number);
+        printf("\t%s",equ[i].name);
+        printf("\t%s",equ[i].factory);
+        printf("\t\t%s",&equ[i].purchased);
+        printf("\t\t%ld",equ[i].amount);
+        printf("\t%ld\n",equ[i].price);
+    }
+    }
+    /********************通过设备号查找设备信息**********************/
+    void searchmessage(void)
+    {
+        char a[10];
+        int i,j;
+        system("cls");
+        printf("请输入需要查找的设备号：\n");
+        scanf("%s",a);
+        for(i=0;i<n;i++)
+        {
+            if(strcmp(a,equ[i].number)==0)
+               {
+                printf("设备号\t名称\t生产厂家\t购买日期\t数量\t价格\t\n");
+                printf("%s",equ[i].number);
+                printf("\t%s",equ[i].name);
+                printf("\t%s",equ[i].factory);
+                printf("\t\t%s",&equ[i].purchased);
+                printf("\t\t%ld",equ[i].amount);
+                printf("\t%ld\n",equ[i].price);
+                printf("\n");
+                break;
+               }
+               else
+                printf("未找到该设备信息\n");
+        }
+    }
+
+    /***************************添加设备信息*****************/
+    void add(void)
+    {
+    int a,i,j;
+    system("cls");
+    printf("请输入添加设备个数：\n");
+    scanf("%d",&a);
+    n=n+a;
+    for(i=n-a;i<n;i++)
+    {
+    printf("请输入添加的设备号  名称：\n");
+    scanf("%s%s",equ[i].number,equ[i].name);
+    printf("请输入设备信息：\n");
+    printf("生产厂家\n");
+    scanf("%s",equ[i].factory);
+    printf("购买日期\n");
+    scanf("%s",&equ[i].purchased);
+    printf("数量\n");
+    scanf("%ld",&equ[i].amount);
+    printf("价格\n");
+    scanf("%ld",&equ[i].price);
+    printf("添加成功\n");
+    }
+    }
+    /********************************删除设备信息*****************/
+    void delmessage(void)
+    {
+        int i,j,c;
+        char m,a[10];
+        system("cls");
+        printf("请输入设备号：\n");
+        scanf("%s",a);
+        for(i=0;i<n;i++)
+        {
+            if(strcmp(a,equ[i].number)==0)
+            {
+                printf("设备号\t名称\t生产厂家\t购买日期\t数量\t价格\t\n");
+                printf("%s",&equ[i].number);
+                printf("\t%s",equ[i].name);
+                printf("\t%s",equ[i].factory);
+                printf("\t\t%s",&equ[i].purchased);
+                printf("\t\t%ld",equ[i].amount);
+                printf("\t%ld\n",equ[i].price);
+                printf("\n");
+                c=i;
+        }
+         else
+                printf("此设备不存在!\n");
+    }
+    printf("是否删除该设备信息(y/n)\n");
+    scanf("%s",&m);
+    if(m=='y')
+    {
+        for(i=c;i<n-1;i++)
+            equ[i]=equ[i+1];
+            n=n-1;
+            printf("删除成功\n");
+    }
+        else
+            printf("删除失败\n");
+    }
+    void output()
+    { system("cls");
+        exit(0);
+    }
